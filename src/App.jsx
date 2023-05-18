@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import "../src/styles/app.css";
+
 import Selo from "./components/Selo";
 import Galo from "./components/Galo";
 
 const App = () => {
   const [carouselType, setCarouselType] = useState("selo");
-  const handleToggleCarouselType = () => {
+  const handleToggleCarousel = () => {
     if (carouselType === "selo") {
       setCarouselType("galo");
     } else {
@@ -13,7 +15,7 @@ const App = () => {
   };
   return (
     <div>
-      <button onClick={handleToggleCarouselType}>
+      <button onClick={handleToggleCarousel}>
         {carouselType === "selo" ? "가로 슬라이드" : "세로 슬라이드"}
       </button>
       {carouselType === "selo" ? <Selo /> : <Galo />}
