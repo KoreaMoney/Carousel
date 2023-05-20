@@ -23,7 +23,6 @@ const App = () => {
       ) : (
         <HorizontalSlide />
       )}
-      <div>여기는 캐러셀 시작하는 구간입니다</div>
     </div>
   );
 };
