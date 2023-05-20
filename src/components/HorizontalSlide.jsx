@@ -10,7 +10,7 @@ import pic3 from "../assets/pic3.webp";
 import pic4 from "../assets/pic4.webp";
 import pic5 from "../assets/pic5.webp";
 
-const images = [pic1, pic2, pic3, pic4, pic5];
+const images = [pic2, pic1, pic3, pic4, pic5];
 
 const HorizontalSlide = () => {
   //[State관리]
