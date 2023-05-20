@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import Selo from "./components/Selo";
-import Galo from "./components/Galo";
+import Vertical from "./components/Vertical";
+import Horizontal from "./components/Horizontal";
 
 const App = () => {
-  const [carouselType, setCarouselType] = useState("selo");
-  const handleToggleCarouselType = () => {
-    if (carouselType === "selo") {
-      setCarouselType("galo");
+  const [carouselType, setCarouselType] = useState("Horizontal");
+  const swapCarouselType = () => {
+    if (carouselType === "Vertical") {
+      setCarouselType("Horizontal");
     } else {
-      setCarouselType("selo");
+      setCarouselType("Vertical");
     }
   };
   return (
     <div>
-      <button onClick={handleToggleCarouselType}>
-        {carouselType === "selo" ? "가로 슬라이드" : "세로 슬라이드"}
-      </button>
-      {carouselType === "selo" ? <Selo /> : <Galo />}
-      <div>여기는 캐러셀 시작하는 구간입니다</div>
+      <button onClick={swapCarouselType}>swapCarousel</button>
+      {carouselType === "Vertical" ? <Vertical /> : <Horizontal />}
     </div>
   );
 };
