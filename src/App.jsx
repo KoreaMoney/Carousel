@@ -3,9 +3,12 @@ import "../src/styles/app.css";
 
 import VerticalSlide from "./components/VerticalSlide";
 import HorizontalSlide from "./components/HorizontalSlide";
+import { Button } from "@mantine/core";
 
 const App = () => {
+  //[State관리]
   const [carouselType, setCarouselType] = useState("verticalSlide");
+  //[Button관리]
   const handleToggleCarousel = () => {
     if (carouselType === "verticalSlide") {
       setCarouselType("horizontalSlide");
@@ -15,9 +18,11 @@ const App = () => {
   };
   return (
     <div>
-      <button onClick={handleToggleCarousel}>
-        {carouselType === "verticalSlide" ? "가로 슬라이드" : "세로 슬라이드"}
-      </button>
+      <div className="mainSwitchBox">
+        <Button onClick={handleToggleCarousel} className="mainSwitchBtn">
+          {carouselType === "verticalSlide" ? "가로 슬라이드" : "세로 슬라이드"}
+        </Button>
+      </div>
       {carouselType === "verticalSlide" ? (
         <VerticalSlide />
       ) : (

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Carousel } from "@mantine/carousel";
-import { Progress, rem } from "@mantine/core";
+import { Button, Progress, rem } from "@mantine/core";
 import { Image } from "@mantine/core";
 import "../styles/horizontalSlide.css";
 
@@ -15,7 +15,7 @@ const images = [pic1, pic2, pic3, pic4, pic5];
 const HorizontalSlide = () => {
   //[State관리]
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [embla, setEmbla] = useState(null);
+  const [slideCarousel, setSlideCarousel] = useState(null);
 
   //[Slide이미지 정렬]
   const slides = images?.map((url) => (
@@ -28,42 +28,53 @@ const HorizontalSlide = () => {
 
   //[스크롤 진행 표시기 관리]
   const handleScroll = useCallback(() => {
-    if (!embla) return;
-    const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
+    if (!slideCarousel) return;
+    const progress = Math.max(0, Math.min(1, slideCarousel.scrollProgress()));
     setScrollProgress(progress * 100);
-  }, [embla, setScrollProgress]);
+  }, [slideCarousel, setScrollProgress]);
 
   useEffect(() => {
-    if (embla) {
-      embla.on("scroll", handleScroll);
+    if (slideCarousel) {
+      slideCarousel.on("scroll", handleScroll);
       handleScroll();
     }
-  }, [embla, handleScroll]);
+  }, [slideCarousel, handleScroll]);
 
   //[ResizeObserver 실행을 제어하기 위한 useEffect 추가]
   useEffect(() => {
     const handleResize = () => {
-      if (embla) {
-        embla.reInit();
+      if (slideCarousel) {
+        slideCarousel.reInit();
       }
     };
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [embla]);
+  }, [slideCarousel]);
 
   //[Button관리]
+  const handlePrevSlide = useCallback(() => {
+    if (slideCarousel) {
+      slideCarousel.scrollPrev();
+    }
+  }, [slideCarousel]);
+
+  const handleNextSlide = useCallback(() => {
+    if (slideCarousel) {
+      slideCarousel.scrollNext();
+    }
+  }, [slideCarousel]);
 
   return (
-    <div className="carouselBox">
+    <div>
       <Carousel
         controlSize={35}
         sx={{ maxWidth: 500, margin: "0 auto" }}
         mx="auto"
         withIndicators
         height={300}
-        getEmblaApi={setEmbla}
+        getEmblaApi={setSlideCarousel}
         styles={{
           indicator: {
             width: rem(20),
@@ -95,6 +106,14 @@ const HorizontalSlide = () => {
         mt="xl"
         mx="auto"
       />
+      <div className="button">
+        <Button color="gray" radius="md" onClick={handlePrevSlide}>
+          이전
+        </Button>
+        <Button color="gray" radius="md" onClick={handleNextSlide}>
+          다음
+        </Button>
+      </div>
     </div>
   );
 };
