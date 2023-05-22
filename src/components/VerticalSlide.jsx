@@ -13,8 +13,9 @@ import pic6 from "../assets/pic6.webp";
 import pic7 from "../assets/pic7.webp";
 import pic8 from "../assets/pic8.webp";
 import pic9 from "../assets/pic9.webp";
+import pic10 from "../assets/pic10.webp";
 
-const images = [pic2, pic1, pic3, pic4, pic5, pic6, pic7, pic8, pic9];
+const images = [pic2, pic1, pic3, pic4, pic5, pic6, pic7, pic8, pic9, pic10];
 const VerticalSlide = () => {
   //[State관리]
   const [slideCarousel, setSlideCarousel] = useState(null);
@@ -54,18 +55,48 @@ const VerticalSlide = () => {
     }
   }, [slideCarousel]);
 
+    //[Wheel]
+  const handleWheel = useCallback(
+    (event) => {
+      if (event.deltaX < 0) {
+        handlePrevSlide();
+      } else {
+        handleNextSlide();
+      }
+    },
+    [handlePrevSlide, handleNextSlide]
+  );
+
+  useEffect(() => {
+    const container = document.querySelector(".verticalSlide");
+    container.addEventListener("wheel", handleWheel);
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
+
+
   return (
     <div>
       <Carousel
         // direction="coloum"
         orientation="vertical"
         controlSize={35}
-        sx={{ maxWidth: 500, margin: "0 auto" }}
+        loop
+        draggable
+        sx={{ maxWidth: 500, margin: "0 auto"}}
         mx="auto"
         withIndicators
-        slideSize="33.3333%"
-        height={600}
+        slidesToScroll={2}
+        slideSize="50.8%"
+        // slideGap="md"
+        height={700}
         getEmblaApi={setSlideCarousel}
+        align="start"
+        breakpoints={[
+          { maxWidth: "md", slideSize: "50%" },
+          { maxWidth: "sm", slideSize: "100%", slideGap: 0 },
+        ]}
         styles={{
           indicator: {
             width: rem(6),
@@ -74,7 +105,7 @@ const VerticalSlide = () => {
             transition: "height 250ms ease",
             "&[data-active]": {
               width: rem(6),
-              height : rem(50)
+              height: rem(50),
             },
             backgroundColor: "#ffffff",
           },
