@@ -98,7 +98,7 @@ const HorizontalSlide = () => {
   return (
     <div className="horizontalSlide">
       <Carousel
-        controlSize={40}
+        controlSize={50}
         sx={{ maxWidth: 1372, margin: "0 auto" }}
         slideSize="50%"
         slideGap="md"
@@ -121,8 +121,8 @@ const HorizontalSlide = () => {
             "&[data-active]": {
               width: rem(55),
             },
-            backgroundColor: "#ffffff",
-            marginBottom: "99px",
+            backgroundColor: "gray",
+            marginBottom: "30px",
           },
           control: {
             "&[data-inactive]": {

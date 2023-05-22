@@ -1,8 +1,8 @@
 .button {
   display: flex;
-  width: 40%;
+  width: 35%;
   margin: 0 auto;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   margin-top: 10px;
 }
@@ -12,7 +12,7 @@
 .mantine-Carousel-root {
   position: static;
 }
-.mantine-a8g232 {
+.mantine-1mz6nu5{
   width: 80%;
   display: flex;
   margin: 0 auto;

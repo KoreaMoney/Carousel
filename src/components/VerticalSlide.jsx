@@ -55,7 +55,7 @@ const VerticalSlide = () => {
     }
   }, [slideCarousel]);
 
-    //[Wheel]
+  //[Wheel]
   const handleWheel = useCallback(
     (event) => {
       if (event.deltaX < 0) {
@@ -75,21 +75,40 @@ const VerticalSlide = () => {
     };
   }, [handleWheel]);
 
+  // 방향키 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowUp" || event.key === "w" || event.key === "W") {
+        handlePrevSlide();
+      } else if (
+        event.key === "ArrowDown" ||
+        event.key === "s" ||
+        event.key === "S"
+      ) {
+        handleNextSlide();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePrevSlide, handleNextSlide]);
 
   return (
-    <div>
+    <div className="verticalSlide">
       <Carousel
         // direction="coloum"
         orientation="vertical"
-        controlSize={35}
+        controlSize={55}
         loop
         draggable
-        sx={{ maxWidth: 500, margin: "0 auto"}}
+        sx={{ maxWidth: 500, margin: "0 auto" }}
         mx="auto"
         withIndicators
+        maw={500}
         slidesToScroll={2}
         slideSize="50.8%"
-        // slideGap="md"
         height={700}
         getEmblaApi={setSlideCarousel}
         align="start"
@@ -107,13 +126,16 @@ const VerticalSlide = () => {
               width: rem(6),
               height: rem(50),
             },
-            backgroundColor: "#ffffff",
+            backgroundColor: "gray",
           },
           control: {
             "&[data-inactive]": {
               opacity: 0,
               cursor: "default",
             },
+            backgroundColor: "gray",
+            color: "white",
+            maxHeight: "50%"
           },
         }}
       >
@@ -121,10 +143,10 @@ const VerticalSlide = () => {
       </Carousel>
       <div className="button">
         <Button color="gray" radius="md" onClick={handlePrevSlide}>
-          Prev
+          Up
         </Button>
         <Button color="gray" radius="md" onClick={handleNextSlide}>
-          Next
+          Down
         </Button>
       </div>
     </div>
