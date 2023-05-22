@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Carousel } from "@mantine/carousel";
-import { Button, Progress, rem } from "@mantine/core";
+import { Button, rem } from "@mantine/core";
 import { Image } from "@mantine/core";
 import "../styles/horizontalSlide.css";
 
@@ -9,12 +9,15 @@ import pic2 from "../assets/pic2.webp";
 import pic3 from "../assets/pic3.webp";
 import pic4 from "../assets/pic4.webp";
 import pic5 from "../assets/pic5.webp";
+import pic6 from "../assets/pic6.webp";
+import pic7 from "../assets/pic7.webp";
+import pic8 from "../assets/pic8.webp";
+import pic9 from "../assets/pic9.webp";
 
-const images = [pic2, pic1, pic3, pic4, pic5];
+const images = [pic2, pic1, pic3, pic4, pic5, pic6, pic7, pic8, pic9];
 
 const HorizontalSlide = () => {
   //[State관리]
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [slideCarousel, setSlideCarousel] = useState(null);
 
   //[Slide이미지 정렬]
@@ -25,20 +28,6 @@ const HorizontalSlide = () => {
       </div>
     </Carousel.Slide>
   ));
-
-  //[스크롤 진행 표시기 관리]
-  const handleScroll = useCallback(() => {
-    if (!slideCarousel) return;
-    const progress = Math.max(0, Math.min(1, slideCarousel.scrollProgress()));
-    setScrollProgress(progress * 100);
-  }, [slideCarousel, setScrollProgress]);
-
-  useEffect(() => {
-    if (slideCarousel) {
-      slideCarousel.on("scroll", handleScroll);
-      handleScroll();
-    }
-  }, [slideCarousel, handleScroll]);
 
   //[ResizeObserver 실행을 제어하기 위한 useEffect 추가]
   useEffect(() => {
@@ -96,16 +85,6 @@ const HorizontalSlide = () => {
       >
         {slides}
       </Carousel>
-      <Progress
-        styles={() => ({
-          bar: { transitionDuration: "0ms" },
-          root: { maxWidth: rem(500) },
-        })}
-        value={scrollProgress}
-        size="sm"
-        mt="xl"
-        mx="auto"
-      />
       <div className="button">
         <Button color="gray" radius="md" onClick={handlePrevSlide}>
           이전
