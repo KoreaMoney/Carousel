@@ -55,13 +55,52 @@ const HorizontalSlide = () => {
       slideCarousel.scrollNext();
     }
   }, [slideCarousel]);
+  //[Wheel]
+  const handleWheel = useCallback(
+    (event) => {
+      if (event.deltaY < 0) {
+        handlePrevSlide();
+      } else {
+        handleNextSlide();
+      }
+    },
+    [handlePrevSlide, handleNextSlide]
+  );
+
+  useEffect(() => {
+    const container = document.querySelector(".horizontalSlide");
+    container.addEventListener("wheel", handleWheel);
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, [handleWheel]);
+
+  // 방향키 이벤트 처리
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft" || event.key === "a" || event.key === "A") {
+        handlePrevSlide();
+      } else if (
+        event.key === "ArrowRight" ||
+        event.key === "d" ||
+        event.key === "D"
+      ) {
+        handleNextSlide();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handlePrevSlide, handleNextSlide]);
 
   return (
-    <div>
+    <div className="horizontalSlide">
       <Carousel
         controlSize={40}
-        sx={{ maxWidth: 1480, margin: "0 auto" }}
-        slideSize="50.8%"
+        sx={{ maxWidth: 1372, margin: "0 auto" }}
+        slideSize="50%"
         slideGap="md"
         loop
         align="start"
@@ -75,21 +114,23 @@ const HorizontalSlide = () => {
         getEmblaApi={setSlideCarousel}
         styles={{
           indicator: {
-            width: rem(20),
-            height: rem(6),
+            width: rem(40),
+            height: rem(5),
             zIndex: rem(1),
             transition: "width 250ms ease",
             "&[data-active]": {
-              width: rem(50),
+              width: rem(55),
             },
             backgroundColor: "#ffffff",
-            marginBottom: "30px",
+            marginBottom: "99px",
           },
           control: {
             "&[data-inactive]": {
               opacity: 0,
               cursor: "default",
             },
+            backgroundColor: "gray",
+            color: "white",
           },
         }}
       >
